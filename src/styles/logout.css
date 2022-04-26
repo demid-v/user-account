@@ -1,0 +1,8 @@
+.logout {
+  text-align: center;
+}
+
+.logout > h4 {
+  margin: 50px 0 10px;
+  font-weight: normal;
+}

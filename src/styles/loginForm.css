@@ -1,0 +1,16 @@
+.loginForm {
+  width: fit-content;
+  margin: 50px auto 0;
+}
+
+.loginForm > * {
+  display: block;
+}
+
+.loginForm > input {
+  width: 250px;
+}
+
+.loginForm > button {
+  margin-top: 10px;
+}

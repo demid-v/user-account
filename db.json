@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Васильев Демид",
+      "email": "vasilyev.demid.e@gmail.com",
+      "password": "qwe",
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Андрианова Юлия",
+          "tel": "88003456767",
+          "address": "qwerty@gmail.com"
+        },
+        {
+          "id": 2,
+          "name": "Толстой Евгений",
+          "tel": "88003456767",
+          "address": "qwerty@gmail.com"
+        },
+        {
+          "id": 3,
+          "name": "Верещагин Андрей",
+          "tel": "88003456767",
+          "address": "qwerty@gmail.com"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Яковлев Михаил",
+      "email": "yakovlev@yandex.ru",
+      "password": "123",
+      "contacts": [
+        {
+          "id": 1,
+          "name": "Зыгарь Михаил",
+          "tel": "89561232100",
+          "address": "rtyfgh@gmail.com"
+        },
+        {
+          "id": 2,
+          "name": "Лондон Мария",
+          "tel": "89561232100",
+          "address": "rtyfgh@gmail.com"
+        },
+        {
+          "id": 3,
+          "name": "Гордеева Катерина",
+          "tel": "89561232100",
+          "address": "rtyfgh@gmail.com"
+        },
+        {
+          "id": 4,
+          "name": "Дымарский Дмитрий",
+          "tel": "89561232100"
+        }
+      ]
+    }
+  ]
+}
