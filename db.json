@@ -4,58 +4,64 @@
       "id": 1,
       "name": "Васильев Демид",
       "email": "vasilyev.demid.e@gmail.com",
-      "password": "qwe",
-      "contacts": [
-        {
-          "id": 1,
-          "name": "Андрианова Юлия",
-          "tel": "88003456767",
-          "address": "qwerty@gmail.com"
-        },
-        {
-          "id": 2,
-          "name": "Толстой Евгений",
-          "tel": "88003456767",
-          "address": "qwerty@gmail.com"
-        },
-        {
-          "id": 3,
-          "name": "Верещагин Андрей",
-          "tel": "88003456767",
-          "address": "qwerty@gmail.com"
-        }
-      ]
+      "password": "qwe"
     },
     {
       "id": 2,
       "name": "Яковлев Михаил",
       "email": "yakovlev@yandex.ru",
-      "password": "123",
-      "contacts": [
-        {
-          "id": 1,
-          "name": "Зыгарь Михаил",
-          "tel": "89561232100",
-          "address": "rtyfgh@gmail.com"
-        },
-        {
-          "id": 2,
-          "name": "Лондон Мария",
-          "tel": "89561232100",
-          "address": "rtyfgh@gmail.com"
-        },
-        {
-          "id": 3,
-          "name": "Гордеева Катерина",
-          "tel": "89561232100",
-          "address": "rtyfgh@gmail.com"
-        },
-        {
-          "id": 4,
-          "name": "Дымарский Дмитрий",
-          "tel": "89561232100"
-        }
-      ]
+      "password": "123"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Андрианова Юлия",
+      "tel": "999",
+      "email": "123@gmail.com"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "Толстой Евгений",
+      "tel": "88003456767",
+      "email": "qwerty@gmail.com"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "name": "Верещагин Андрей",
+      "tel": "88003456767",
+      "email": "qwerty@gmail.com"
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "name": "Гоголев Антон",
+      "tel": "123456",
+      "email": "frnj111@gmail.com"
+    },
+    {
+      "id": 5,
+      "userId": 2,
+      "name": "Лондон Мария",
+      "tel": "89561232100",
+      "email": "rtyfgh@gmail.com"
+    },
+    {
+      "id": 6,
+      "userId": 2,
+      "name": "Гордеева Катерина",
+      "tel": "89561232100",
+      "email": "rtyfgh@gmail.com"
+    },
+    {
+      "id": 7,
+      "userId": 2,
+      "name": "Дымарский Дмитрий",
+      "tel": "89561232100",
+      "email": "rtyfgh@gmail.com"
     }
   ]
 }

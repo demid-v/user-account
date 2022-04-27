@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../app/store";
-import { deleteCookie, getCookie, setCookie } from "../utils/cookie";
-import { fetchUser } from "./loginAPI";
+import { RootState } from "../../app/store";
+import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
+import { getUser } from "../apis/user";
 
-interface Login {
+interface ILogin {
   loggedIn: boolean;
-  userId?: number;
   status: "idle" | "pending" | "successful" | "failed";
+  userId?: number;
 }
 
-const initialState: Login = {
+const initialState: ILogin = {
   loggedIn: false,
   status: "idle",
 };
@@ -17,11 +17,10 @@ const initialState: Login = {
 const login = createAsyncThunk(
   "login/login",
   async (submittedData: { email: string; password: string }) => {
-    const response = await fetchUser(submittedData);
-    const data = await response.json();
-    console.log(data);
+    const response = await getUser(submittedData);
+    const { id } = (await response.json())[0];
 
-    return data;
+    return id;
   }
 );
 
@@ -60,12 +59,16 @@ const loginSlice = createSlice({
       state.status = "pending";
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      if (action.payload.length === 0) {
+      console.log(action);
+      console.log(action.payload);
+
+      if (action.payload === "") {
         state.status = "failed";
       } else {
         state.status = "successful";
         state.loggedIn = true;
-        const userId = (state.userId = action.payload[0].id);
+        state.userId = action.payload;
+        const userId = 1;
 
         setCookieUserId(userId);
       }
@@ -78,7 +81,7 @@ const loginSlice = createSlice({
 
 const { logout, typing, setStateFromCookies } = loginSlice.actions;
 
-const selectState = (state: RootState) => state.login;
+const selectLogin = (state: RootState) => state.login;
 
 export default loginSlice.reducer;
-export { login, logout, typing, setStateFromCookies, selectState };
+export { login, logout, typing, setStateFromCookies, selectLogin };

@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../app/hooks";
-import { logout } from "../features/login";
+import { logout } from "../features/login/login";
 import "../styles/logout.css";
 
 function Logout() {

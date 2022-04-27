@@ -1,8 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import loginReducer from "../features/login";
+import contactsReducer from "../features/contacts/contacts";
+import loginReducer from "../features/login/login";
 
 export const store = configureStore({
-  reducer: { login: loginReducer },
+  reducer: { login: loginReducer, contacts: contactsReducer },
 });
 
 export type AppDispatch = typeof store.dispatch;

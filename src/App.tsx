@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import Header from "./components/Header";
-import { selectState, setStateFromCookies } from "./features/login";
+import { selectLogin, setStateFromCookies } from "./features/login/login";
 import Contacts from "./pages/Contacts";
 import Login from "./pages/Login";
 
 function App() {
-  const state = useAppSelector(selectState);
+  const state = useAppSelector(selectLogin);
 
   const [checkedCookies, setCheckedCookies] = useState(false);
 
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(setStateFromCookies());
     setCheckedCookies(true);

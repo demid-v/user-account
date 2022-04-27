@@ -1,11 +1,22 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import Contact from "../components/Contact";
+import {
+  getContactsThunk,
+  selectContacts,
+} from "../features/contacts/contacts";
+import { selectLogin } from "../features/login/login";
 import "../styles/contacts.css";
 
 function Contacts() {
-  const contactsElements = [];
-  for (let i = 0; i < 3; i++) {
-    contactsElements.push(<Contact key={i} index={i + 1} />);
-  }
+  const { contacts } = useAppSelector(selectContacts);
+  const { userId } = useAppSelector(selectLogin);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getContactsThunk(userId));
+  }, [dispatch, userId]);
 
   return (
     <table className="contacts-table">
@@ -17,7 +28,11 @@ function Contacts() {
           <th>Email</th>
         </tr>
       </thead>
-      <tbody>{contactsElements}</tbody>
+      <tbody>
+        {contacts?.map((contact, index) => (
+          <Contact key={contact.id} index={index + 1} data={contact} />
+        ))}
+      </tbody>
     </table>
   );
 }

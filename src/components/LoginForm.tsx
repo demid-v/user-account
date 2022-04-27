@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { login, selectState, typing } from "../features/login";
+import { login, selectLogin, typing } from "../features/login/login";
 import "../styles/loginForm.css";
 
 function LoginForm() {
@@ -9,12 +9,12 @@ function LoginForm() {
 
   const dispatch = useAppDispatch();
 
-  const state = useAppSelector(selectState);
+  const { status } = useAppSelector(selectLogin);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    console.log(dispatch(login({ email, password })));
+    dispatch(login({ email, password }));
   }
 
   function handleFormChange() {
@@ -47,10 +47,10 @@ function LoginForm() {
         required
       />
 
-      <button className="form-button" disabled={state.status === "pending"}>
+      <button className="form-button" disabled={status === "pending"}>
         Войти
       </button>
-      {state.status === "failed" && <p>Неверный логин или пароль.</p>}
+      {status === "failed" && <p>Неверный логин или пароль.</p>}
     </form>
   );
 }

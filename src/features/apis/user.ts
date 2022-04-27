@@ -1,4 +1,4 @@
-function fetchUser({ email, password }: { email: string; password: string }) {
+function getUser({ email, password }: { email: string; password: string }) {
   return fetch(
     `http://localhost:3001/users?email=${email}&password=${password}`,
     {
@@ -7,4 +7,4 @@ function fetchUser({ email, password }: { email: string; password: string }) {
   );
 }
 
-export { fetchUser };
+export { getUser };

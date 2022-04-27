@@ -1,22 +1,22 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
-import { selectState } from "../features/login";
+import { selectLogin } from "../features/login/login";
 import "../styles/header.css";
 
 function Header() {
-  const state = useAppSelector(selectState);
+  const { loggedIn } = useAppSelector(selectLogin);
 
   return (
     <header className="header">
       <nav>
         <ul>
-          {state.loggedIn && (
+          {loggedIn && (
             <li>
               <Link to="/contacts">Контакты</Link>
             </li>
           )}
           <li>
-            <Link to="/login">{state.loggedIn ? "Выйти" : "Войти"}</Link>
+            <Link to="/login">{loggedIn ? "Выйти" : "Войти"}</Link>
           </li>
         </ul>
       </nav>
