@@ -12,7 +12,9 @@ function Logout() {
   return (
     <div className="logout">
       <h4>Вы вошли</h4>
-      <button onClick={handleLogout}>Выйти</button>
+      <button className="form-button" onClick={handleLogout}>
+        Выйти
+      </button>
     </div>
   );
 }

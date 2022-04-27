@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
+import { deleteCookie, getCookie, setCookie } from "../utils/cookie";
 import { fetchUser } from "./loginAPI";
 
 interface Login {
@@ -24,6 +25,11 @@ const login = createAsyncThunk(
   }
 );
 
+const setCookieUserId = (userId: number) =>
+  setCookie("userId", userId, 1000 * 60 * 60 * 24);
+const getCookieUserId = () => getCookie("userId");
+const deleteCookieUserId = () => deleteCookie("userId");
+
 const loginSlice = createSlice({
   name: "login",
   initialState,
@@ -32,10 +38,20 @@ const loginSlice = createSlice({
       state.loggedIn = false;
       state.status = "idle";
       delete state.userId;
+
+      deleteCookieUserId();
     },
     typing(state) {
       if (state.status === "failed") {
         state.status = "idle";
+      }
+    },
+    setStateFromCookies(state) {
+      let userId: number | string = getCookieUserId();
+      if (userId !== "" && !Number.isNaN(userId)) {
+        userId = Number(userId);
+        state.loggedIn = true;
+        state.userId = userId;
       }
     },
   },
@@ -49,7 +65,9 @@ const loginSlice = createSlice({
       } else {
         state.status = "successful";
         state.loggedIn = true;
-        state.userId = action.payload[0].id;
+        const userId = (state.userId = action.payload[0].id);
+
+        setCookieUserId(userId);
       }
     });
     builder.addCase(login.rejected, (state) => {
@@ -58,9 +76,9 @@ const loginSlice = createSlice({
   },
 });
 
-const { logout, typing } = loginSlice.actions;
+const { logout, typing, setStateFromCookies } = loginSlice.actions;
 
 const selectState = (state: RootState) => state.login;
 
 export default loginSlice.reducer;
-export { login, logout, typing, selectState };
+export { login, logout, typing, setStateFromCookies, selectState };

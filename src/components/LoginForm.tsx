@@ -31,7 +31,7 @@ function LoginForm() {
 
   return (
     <form
-      className="loginForm"
+      className="login-form"
       action="get"
       onSubmit={handleSubmit}
       onChange={handleFormChange}
@@ -47,7 +47,9 @@ function LoginForm() {
         required
       />
 
-      <button disabled={state.status === "pending"}>Войти</button>
+      <button className="form-button" disabled={state.status === "pending"}>
+        Войти
+      </button>
       {state.status === "failed" && <p>Неверный логин или пароль.</p>}
     </form>
   );

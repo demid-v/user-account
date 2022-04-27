@@ -5,7 +5,6 @@ import { selectState } from "../features/login";
 
 function Login() {
   const state = useAppSelector(selectState);
-  console.log(state);
 
   return <main>{state.loggedIn ? <Logout /> : <LoginForm />}</main>;
 }

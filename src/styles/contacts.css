@@ -1,0 +1,26 @@
+.contacts-table {
+  margin-left: auto;
+  margin-right: auto;
+  border-spacing: 1.5em 0.5em;
+}
+
+.contacts-table button {
+  border: none;
+  background-color: white;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.contacts-table button:hover {
+  background-color: rgb(240, 240, 240);
+  border: 1px solid rgb(212, 212, 212);
+}
+
+.contacts-table img {
+  width: 10px;
+}
+
+.contacts-table-options {
+  margin-left: -10px;
+}

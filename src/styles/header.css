@@ -1,0 +1,19 @@
+.header {
+  padding: 1em 40px;
+  margin-bottom: 50px;
+}
+
+.header ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+}
+
+.header a {
+  text-decoration: none;
+  color: black;
+}
+
+.header li:not(:last-child) {
+  margin-right: 20px;
+}
