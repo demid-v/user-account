@@ -4,7 +4,7 @@ function getContacts(userId: number) {
   });
 }
 
-function submitContact({
+function editContact({
   contactId,
   name,
   tel,
@@ -22,4 +22,10 @@ function submitContact({
   });
 }
 
-export { getContacts, submitContact };
+function deleteContact(contactId: number) {
+  return fetch(`http://localhost:3001/contacts/${contactId}`, {
+    method: "DELETE",
+  });
+}
+
+export { getContacts, editContact, deleteContact };

@@ -22,3 +22,71 @@
 
 Проверка выполненной работы
 Как правило проверка работы занимает до двух недель.
+
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Васильев Демид",
+      "email": "vasilyev.demid.e@gmail.com",
+      "password": "qwe"
+    },
+    {
+      "id": 2,
+      "name": "Яковлев Михаил",
+      "email": "yakovlev@yandex.ru",
+      "password": "123"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Андрианова Юлия",
+      "tel": "89042508890",
+      "email": "adrianova@gmail.com"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "Толстой Евгений",
+      "tel": "88003456767",
+      "email": "tolstoy@gmail.com"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "name": "Верещагин Андрей",
+      "tel": "82108903450",
+      "email": "vereschagin@gmail.com"
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "name": "Гоголев Антон",
+      "tel": "88003456767",
+      "email": "frnj111@gmail.com"
+    },
+    {
+      "id": 5,
+      "userId": 2,
+      "name": "Лондон Мария",
+      "tel": "89561232100",
+      "email": "rtyfgh@gmail.com"
+    },
+    {
+      "id": 6,
+      "userId": 2,
+      "name": "Дементьев Виктор",
+      "tel": "88003456767",
+      "email": "rtyfgh@gmail.com"
+    },
+    {
+      "id": 7,
+      "userId": 2,
+      "name": "Соболев Леонид",
+      "tel": "89042508890",
+      "email": "rtyfgh@gmail.com"
+    }
+  ]
+}

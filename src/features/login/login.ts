@@ -59,9 +59,6 @@ const loginSlice = createSlice({
       state.status = "pending";
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      console.log(action);
-      console.log(action.payload);
-
       if (action.payload === "") {
         state.status = "failed";
       } else {

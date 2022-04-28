@@ -18,28 +18,28 @@
       "id": 1,
       "userId": 1,
       "name": "Андрианова Юлия",
-      "tel": "999",
-      "email": "123@gmail.com"
+      "tel": "89042508890",
+      "email": "adrianova@gmail.com"
     },
     {
       "id": 2,
       "userId": 1,
       "name": "Толстой Евгений",
       "tel": "88003456767",
-      "email": "qwerty@gmail.com"
+      "email": "tolstoy@gmail.com"
     },
     {
       "id": 3,
       "userId": 1,
       "name": "Верещагин Андрей",
-      "tel": "88003456767",
-      "email": "qwerty@gmail.com"
+      "tel": "82108903450",
+      "email": "vereschagin@gmail.com"
     },
     {
       "id": 4,
       "userId": 2,
       "name": "Гоголев Антон",
-      "tel": "123456",
+      "tel": "88003456767",
       "email": "frnj111@gmail.com"
     },
     {
@@ -52,15 +52,15 @@
     {
       "id": 6,
       "userId": 2,
-      "name": "Гордеева Катерина",
-      "tel": "89561232100",
+      "name": "Дементьев Виктор",
+      "tel": "88003456767",
       "email": "rtyfgh@gmail.com"
     },
     {
       "id": 7,
       "userId": 2,
-      "name": "Дымарский Дмитрий",
-      "tel": "89561232100",
+      "name": "Соболев Леонид",
+      "tel": "89042508890",
       "email": "rtyfgh@gmail.com"
     }
   ]

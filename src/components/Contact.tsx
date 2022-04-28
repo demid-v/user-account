@@ -3,11 +3,13 @@ import deleteIcon from "../assets/icons/delete.png";
 import checkIcon from "../assets/icons/check.png";
 import cancelIcon from "../assets/icons/cancel.svg";
 import {
-  Contact as IContact,
-  submitContactThunk,
+  IContact,
+  deleteContactThunk,
+  editContactThunk,
 } from "../features/contacts/contacts";
-import { FormEvent, useState } from "react";
-import { useAppDispatch } from "../app/hooks";
+import { FormEvent, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { selectLogin } from "../features/login/login";
 
 function Contact({
   index,
@@ -18,15 +20,27 @@ function Contact({
 }) {
   const [editMode, setEditMode] = useState(false);
 
-  const [localName, setLocalName] = useState(name);
-  const [localTel, setLocalTel] = useState(tel);
-  const [localEmail, setLocalEmail] = useState(email);
+  const [localName, setLocalName] = useState("");
+  const [localTel, setLocalTel] = useState("");
+  const [localEmail, setLocalEmail] = useState("");
 
-  function editContact() {
+  useEffect(() => {
+    setLocalName(name);
+  }, [name]);
+
+  useEffect(() => {
+    setLocalTel(tel);
+  }, [tel]);
+
+  useEffect(() => {
+    setLocalEmail(email);
+  }, [email]);
+
+  function turnOnEditMode() {
     setEditMode(true);
   }
 
-  function exitEdittingMode() {
+  function exitEditMode() {
     setEditMode(false);
 
     setLocalName(name);
@@ -36,27 +50,27 @@ function Contact({
 
   const dispatch = useAppDispatch();
 
-  function submitChange() {
-    exitEdittingMode();
+  const { userId } = useAppSelector(selectLogin);
+
+  function editContact() {
+    exitEditMode();
 
     if (
+      userId !== undefined &&
       id !== undefined &&
       localName !== undefined &&
       localTel !== undefined &&
       localEmail !== undefined
     ) {
       dispatch(
-        submitContactThunk({
+        editContactThunk({
+          userId,
           contactId: id,
           name: localName,
           tel: localTel,
           email: localEmail,
         })
-      ).then(({ payload: { name, tel, email } }) => {
-        setLocalName(name);
-        setLocalTel(tel);
-        setLocalEmail(email);
-      });
+      );
     }
   }
 
@@ -70,6 +84,12 @@ function Contact({
 
   function handleEmailChange(event: FormEvent) {
     setLocalEmail((event.target as HTMLInputElement).value);
+  }
+
+  function deleteContact() {
+    if (id !== undefined && userId !== undefined) {
+      dispatch(deleteContactThunk({ contactId: id, userId }));
+    }
   }
 
   return (
@@ -93,31 +113,28 @@ function Contact({
         </>
       ) : (
         <>
-          <td>{localName}</td>
-          <td>{localTel}</td>
-          <td>{localEmail}</td>
+          <td>{name}</td>
+          <td>{tel}</td>
+          <td>{email}</td>
         </>
       )}
       <td>
         <div className="contacts-table-options">
           {editMode ? (
             <>
-              <button title="Подтвердить" onClick={submitChange}>
+              <button title="Подтвердить" onClick={editContact}>
                 <img src={checkIcon} alt="Подтвердить" />
               </button>
-              <button
-                title="Отменить редактирование"
-                onClick={exitEdittingMode}
-              >
+              <button title="Отменить редактирование" onClick={exitEditMode}>
                 <img src={cancelIcon} alt="Отменить редактирование" />
               </button>
             </>
           ) : (
-            <button title="Редактировать" onClick={editContact}>
+            <button title="Редактировать" onClick={turnOnEditMode}>
               <img src={pencilIcon} alt="Редактировать" />
             </button>
           )}
-          <button title="Удалить">
+          <button title="Удалить" onClick={deleteContact}>
             <img src={deleteIcon} alt="Удалить" />
           </button>
         </div>
