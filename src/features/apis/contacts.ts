@@ -46,4 +46,13 @@ function addContact({
   });
 }
 
-export { getContacts, editContact, deleteContact, addContact };
+function searchContacts({ userId, query }: { userId: number; query: string }) {
+  return fetch(
+    `http://localhost:3001/contacts?userId=${userId}&name_like=${query}`,
+    {
+      method: "GET",
+    }
+  );
+}
+
+export { getContacts, editContact, deleteContact, addContact, searchContacts };

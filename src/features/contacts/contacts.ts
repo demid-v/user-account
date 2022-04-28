@@ -5,6 +5,7 @@ import {
   getContacts,
   editContact,
   addContact,
+  searchContacts,
 } from "../apis/contacts";
 
 interface IContact {
@@ -74,6 +75,16 @@ const addContactThunk = createAsyncThunk(
   }
 );
 
+const searchContactsThunk = createAsyncThunk(
+  "contacts/searchContact",
+  async (contactData: { userId: number; query: string }) => {
+    const response = await searchContacts(contactData);
+    const contacts = await response.json();
+
+    return contacts;
+  }
+);
+
 const contactsSlice = createSlice({
   name: "contacts",
   initialState,
@@ -126,6 +137,18 @@ const contactsSlice = createSlice({
     builder.addCase(addContactThunk.rejected, (state) => {
       state.status = "failed";
     });
+
+    builder.addCase(searchContactsThunk.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(searchContactsThunk.fulfilled, (state, action) => {
+      state.status = "successful";
+
+      state.contacts = action.payload;
+    });
+    builder.addCase(searchContactsThunk.rejected, (state) => {
+      state.status = "failed";
+    });
   },
 });
 
@@ -134,9 +157,10 @@ const selectContacts = (state: RootState) => state.contacts;
 export default contactsSlice.reducer;
 export type { IContact };
 export {
+  selectContacts,
   getContactsThunk,
   editContactThunk,
   deleteContactThunk,
-  selectContacts,
   addContactThunk,
+  searchContactsThunk,
 };
