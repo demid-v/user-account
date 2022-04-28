@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { deleteContact, getContacts, editContact } from "../apis/contacts";
+import {
+  deleteContact,
+  getContacts,
+  editContact,
+  addContact,
+} from "../apis/contacts";
 
 interface IContact {
   id: number;
@@ -42,11 +47,6 @@ const editContactThunk = createAsyncThunk(
   }) => {
     await editContact(contactData);
 
-    // const contacts = await getContactsCallBack(contactData.userId);
-
-    // const response = await getContacts(contactData.userId);
-    // const contacts = await response.json();
-
     return await getContactsCallBack(contactData.userId);
   }
 );
@@ -56,12 +56,21 @@ const deleteContactThunk = createAsyncThunk(
   async ({ contactId, userId }: { contactId: number; userId: number }) => {
     await deleteContact(contactId);
 
-    // const contacts = await getContactsCallBack(userId);
-
-    // const response = await getContacts(userId);
-    // const contacts = await response.json();
-
     return await getContactsCallBack(userId);
+  }
+);
+
+const addContactThunk = createAsyncThunk(
+  "contacts/addContact",
+  async (contactData: {
+    userId: number;
+    name: string;
+    tel: string;
+    email: string;
+  }) => {
+    await addContact(contactData);
+
+    return await getContactsCallBack(contactData.userId);
   }
 );
 
@@ -105,6 +114,18 @@ const contactsSlice = createSlice({
     builder.addCase(deleteContactThunk.rejected, (state) => {
       state.status = "failed";
     });
+
+    builder.addCase(addContactThunk.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(addContactThunk.fulfilled, (state, action) => {
+      state.status = "successful";
+
+      state.contacts = action.payload;
+    });
+    builder.addCase(addContactThunk.rejected, (state) => {
+      state.status = "failed";
+    });
   },
 });
 
@@ -117,4 +138,5 @@ export {
   editContactThunk,
   deleteContactThunk,
   selectContacts,
+  addContactThunk,
 };

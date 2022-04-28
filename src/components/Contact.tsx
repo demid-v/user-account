@@ -120,23 +120,23 @@ function Contact({
       )}
       <td>
         <div className="contacts-table-options">
+          <button title="Удалить" onClick={deleteContact}>
+            <img src={deleteIcon} alt="" />
+          </button>
           {editMode ? (
             <>
               <button title="Подтвердить" onClick={editContact}>
-                <img src={checkIcon} alt="Подтвердить" />
+                <img src={checkIcon} alt="" />
               </button>
               <button title="Отменить редактирование" onClick={exitEditMode}>
-                <img src={cancelIcon} alt="Отменить редактирование" />
+                <img src={cancelIcon} alt="" />
               </button>
             </>
           ) : (
             <button title="Редактировать" onClick={turnOnEditMode}>
-              <img src={pencilIcon} alt="Редактировать" />
+              <img src={pencilIcon} alt="" />
             </button>
           )}
-          <button title="Удалить" onClick={deleteContact}>
-            <img src={deleteIcon} alt="Удалить" />
-          </button>
         </div>
       </td>
     </tr>

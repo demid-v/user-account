@@ -64,8 +64,7 @@ const loginSlice = createSlice({
       } else {
         state.status = "successful";
         state.loggedIn = true;
-        state.userId = action.payload;
-        const userId = 1;
+        const userId = (state.userId = action.payload);
 
         setCookieUserId(userId);
       }

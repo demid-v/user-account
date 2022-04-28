@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import AddContact from "../components/AddContact";
 import Contact from "../components/Contact";
 import {
   getContactsThunk,
@@ -32,6 +33,7 @@ function Contacts() {
         {contacts?.map((contact, index) => (
           <Contact key={contact.id} index={index + 1} data={contact} />
         ))}
+        <AddContact />
       </tbody>
     </table>
   );

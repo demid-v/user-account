@@ -28,4 +28,22 @@ function deleteContact(contactId: number) {
   });
 }
 
-export { getContacts, editContact, deleteContact };
+function addContact({
+  userId,
+  name,
+  tel,
+  email,
+}: {
+  userId: number;
+  name: string;
+  tel: string;
+  email: string;
+}) {
+  return fetch(`http://localhost:3001/contacts`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId, name, tel, email }),
+  });
+}
+
+export { getContacts, editContact, deleteContact, addContact };
