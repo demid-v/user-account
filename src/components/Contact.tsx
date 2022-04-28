@@ -5,7 +5,7 @@ import cancelIcon from "../assets/icons/cancel.svg";
 import {
   IContact,
   deleteContactThunk,
-  editContactThunk,
+  updateContactThunk,
 } from "../features/contacts/contacts";
 import { FormEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
@@ -63,7 +63,7 @@ function Contact({
       localEmail !== undefined
     ) {
       dispatch(
-        editContactThunk({
+        updateContactThunk({
           userId,
           contactId: id,
           name: localName,

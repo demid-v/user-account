@@ -1,10 +1,21 @@
-function getContacts(userId: number) {
-  return fetch(`http://localhost:3001/contacts?userId=${userId}`, {
+function getContacts({
+  userId,
+  query,
+}: {
+  userId: number;
+  query?: string | null;
+}) {
+  let search = "";
+  if (query != null) {
+    search = `&name_like=${query}`;
+  }
+
+  return fetch(`http://localhost:3001/contacts?userId=${userId}${search}`, {
     method: "GET",
   });
 }
 
-function editContact({
+function updateContact({
   contactId,
   name,
   tel,
@@ -19,12 +30,6 @@ function editContact({
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, tel, email }),
-  });
-}
-
-function deleteContact(contactId: number) {
-  return fetch(`http://localhost:3001/contacts/${contactId}`, {
-    method: "DELETE",
   });
 }
 
@@ -46,13 +51,10 @@ function addContact({
   });
 }
 
-function searchContacts({ userId, query }: { userId: number; query: string }) {
-  return fetch(
-    `http://localhost:3001/contacts?userId=${userId}&name_like=${query}`,
-    {
-      method: "GET",
-    }
-  );
+function deleteContact(contactId: number) {
+  return fetch(`http://localhost:3001/contacts/${contactId}`, {
+    method: "DELETE",
+  });
 }
 
-export { getContacts, editContact, deleteContact, addContact, searchContacts };
+export { getContacts, updateContact, addContact, deleteContact };

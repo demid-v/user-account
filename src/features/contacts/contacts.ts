@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import {
-  deleteContact,
   getContacts,
-  editContact,
+  updateContact,
   addContact,
-  searchContacts,
+  deleteContact,
 } from "../apis/contacts";
 
 interface IContact {
@@ -15,29 +14,34 @@ interface IContact {
   email: string;
 }
 
+type TStatus = "idle" | "pending" | "successful" | "failed";
+
 interface Contacts {
-  status: "idle" | "pending" | "successful" | "failed";
+  getStatus: TStatus;
+  updateStatus: TStatus;
+  addStatus: TStatus;
+  deleteStatus: TStatus;
   contacts?: IContact[];
 }
 
-const initialState: Contacts = { status: "idle" };
-
-const getContactsCallBack = async (userId?: number) => {
-  if (userId === undefined) {
-    return [];
-  }
-  const response = await getContacts(userId);
-  const contacts = await response.json();
-
-  return contacts;
+const initialState: Contacts = {
+  getStatus: "idle",
+  updateStatus: "idle",
+  addStatus: "idle",
+  deleteStatus: "idle",
 };
 
 const getContactsThunk = createAsyncThunk(
   "contacts/getContacts",
-  getContactsCallBack
+  async ({ userId, query }: { userId: number; query?: string | null }) => {
+    const response = await getContacts({ userId, query });
+    const contacts = await response.json();
+
+    return contacts;
+  }
 );
 
-const editContactThunk = createAsyncThunk(
+const updateContactThunk = createAsyncThunk(
   "contacts/editContact",
   async (contactData: {
     userId: number;
@@ -46,18 +50,7 @@ const editContactThunk = createAsyncThunk(
     tel: string;
     email: string;
   }) => {
-    await editContact(contactData);
-
-    return await getContactsCallBack(contactData.userId);
-  }
-);
-
-const deleteContactThunk = createAsyncThunk(
-  "contacts/deleteContact",
-  async ({ contactId, userId }: { contactId: number; userId: number }) => {
-    await deleteContact(contactId);
-
-    return await getContactsCallBack(userId);
+    await updateContact(contactData);
   }
 );
 
@@ -70,18 +63,13 @@ const addContactThunk = createAsyncThunk(
     email: string;
   }) => {
     await addContact(contactData);
-
-    return await getContactsCallBack(contactData.userId);
   }
 );
 
-const searchContactsThunk = createAsyncThunk(
-  "contacts/searchContact",
-  async (contactData: { userId: number; query: string }) => {
-    const response = await searchContacts(contactData);
-    const contacts = await response.json();
-
-    return contacts;
+const deleteContactThunk = createAsyncThunk(
+  "contacts/deleteContact",
+  async ({ contactId }: { contactId: number; userId: number }) => {
+    await deleteContact(contactId);
   }
 );
 
@@ -91,63 +79,44 @@ const contactsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(getContactsThunk.pending, (state) => {
-      state.status = "pending";
+      state.getStatus = "pending";
     });
     builder.addCase(getContactsThunk.fulfilled, (state, action) => {
-      state.status = "successful";
-
+      state.getStatus = "successful";
       state.contacts = action.payload;
     });
     builder.addCase(getContactsThunk.rejected, (state) => {
-      state.status = "failed";
+      state.getStatus = "failed";
     });
 
-    builder.addCase(editContactThunk.pending, (state) => {
-      state.status = "pending";
+    builder.addCase(updateContactThunk.pending, (state) => {
+      state.updateStatus = "pending";
     });
-    builder.addCase(editContactThunk.fulfilled, (state, action) => {
-      state.status = "successful";
-
-      state.contacts = action.payload;
+    builder.addCase(updateContactThunk.fulfilled, (state) => {
+      state.updateStatus = "successful";
     });
-    builder.addCase(editContactThunk.rejected, (state) => {
-      state.status = "failed";
-    });
-
-    builder.addCase(deleteContactThunk.pending, (state) => {
-      state.status = "pending";
-    });
-    builder.addCase(deleteContactThunk.fulfilled, (state, action) => {
-      state.status = "successful";
-
-      state.contacts = action.payload;
-    });
-    builder.addCase(deleteContactThunk.rejected, (state) => {
-      state.status = "failed";
+    builder.addCase(updateContactThunk.rejected, (state) => {
+      state.updateStatus = "failed";
     });
 
     builder.addCase(addContactThunk.pending, (state) => {
-      state.status = "pending";
+      state.addStatus = "pending";
     });
-    builder.addCase(addContactThunk.fulfilled, (state, action) => {
-      state.status = "successful";
-
-      state.contacts = action.payload;
+    builder.addCase(addContactThunk.fulfilled, (state) => {
+      state.addStatus = "successful";
     });
     builder.addCase(addContactThunk.rejected, (state) => {
-      state.status = "failed";
+      state.addStatus = "failed";
     });
 
-    builder.addCase(searchContactsThunk.pending, (state) => {
-      state.status = "pending";
+    builder.addCase(deleteContactThunk.pending, (state) => {
+      state.deleteStatus = "pending";
     });
-    builder.addCase(searchContactsThunk.fulfilled, (state, action) => {
-      state.status = "successful";
-
-      state.contacts = action.payload;
+    builder.addCase(deleteContactThunk.fulfilled, (state) => {
+      state.deleteStatus = "successful";
     });
-    builder.addCase(searchContactsThunk.rejected, (state) => {
-      state.status = "failed";
+    builder.addCase(deleteContactThunk.rejected, (state) => {
+      state.deleteStatus = "failed";
     });
   },
 });
@@ -159,8 +128,7 @@ export type { IContact };
 export {
   selectContacts,
   getContactsThunk,
-  editContactThunk,
-  deleteContactThunk,
+  updateContactThunk,
   addContactThunk,
-  searchContactsThunk,
+  deleteContactThunk,
 };
